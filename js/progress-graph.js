@@ -5,36 +5,61 @@
 
 	document.addEventListener("DOMContentLoaded", function() {
 		getData();
+	});
 
-		var ctx = document.getElementById("progress-graph").getContext("2d");
+	function getData() {
+        var ajax = new XMLHttpRequest();
+        ajax.onload = loadData;
+        ajax.open("GET", DATA_FILE, true);
+        ajax.withCredentials = true;
+        ajax.send();
+    }
 
-		var myChart = new Chart(ctx, {
+    function loadData() {
+        if (this.readyState === 4 && this.status === 200) {
+            var files = this.responseText.match(/[^\r\n]+/g);
+
+            var dates = [];
+            var values = [];
+            for (var i = 0; i < files.length; i++) {
+                console.log(files[i]);
+                var parts = files[i].split("=");
+				var date = files[0];
+				var value = files[1];
+
+				dates.push(date);
+				values.push(value);
+            }
+            makeGraph(dates, values);
+        } else {
+            alert("There was a problem getting the contents of " + DATA_FILE);
+        }
+    }
+
+    function makeGraph(dates, values) {
+    	var ctx = document.getElementById("progress-graph").getContext("2d");
+
+    	var labelStrings = [];
+    	for(var i = 0; i < dates.length; i++) {
+    		labelStrings.push(new Date(dates[i]).toLocaleString());
+    	}
+
+    	var dataPoints = [];
+    	for(var i = 0; i < dates.length; i++) {
+    		var point = {
+    			t: new Date(dates[i]),
+    			y: values[i]
+    		};
+    		dataPoints.push(point);
+    	}
+
+		var chart = new Chart(ctx, {
 			type: 'line',
 			data: {
-				labels: [new Date("2015-3-15 13:3").toLocaleString(), new Date("2015-3-25 13:2").toLocaleString(), new Date("2015-4-25 14:12").toLocaleString()],
+				labels: labelStrings,
 				datasets: [{
-					label: 'Demo',
-					data: [{
-						t: new Date("2018-04-08 18:23:22"),
-						y: .57720
-					},
-					{
-						t: new Date("2018-04-09 16:56:33"),
-						y: .57720
-					},
-					{
-						t: new Date("2018-04-09 19:00:53 -0700"),
-						y: .57720
-					},
-					{
-						t: new Date("2018-04-26 15:15:34"),
-						y: .76178
-					},
-					{
-						t: new Date("2018-04-26 15:21:05 -0700"),
-						y: .76178
-					}
-					],
+					label: 'Progress',
+					data: dataPoints,
 					backgroundColor: [
 					'rgba(255, 99, 132, 0.2)',
 					'rgba(54, 162, 235, 0.2)',
@@ -55,27 +80,5 @@
 				}]
 			}
 		});
-	});
-
-	function getData() {
-        var ajax = new XMLHttpRequest();
-        ajax.onload = loadData;
-        ajax.open("GET", DATA_FILE, true);
-        ajax.withCredentials = true;
-        ajax.send();
-    }
-
-    function loadData() {
-        if (this.readyState === 4 && this.status === 200) {
-            console.log(this.responseText);
-            var files = this.responseText.match(/[^\r\n]+/g);
-
-            for (var i = 0; i < files.length; i++) {
-                console.log(files[i]);
-            }
-            fixSize();
-        } else {
-            alert("There was a problem getting the contents of " + DATA_FILE);
-        }
     }
 }) ();
