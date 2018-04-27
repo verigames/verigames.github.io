@@ -63,18 +63,18 @@
 						distribution: 'linear'
 					}],
 					yAxes: [{
-						display: true,
-						ticks: {
-							suggestedMin: 0,
-							max: 1.0
-						}
+						display: true//,
+						// ticks: {
+						// 	suggestedMin: 0,
+						// 	max: 1.0
+						// }
 					}]
 				}
 			},		
 			data: {
 				labels: labelStrings,
 				datasets: [{
-					label: '% of Files Modified',
+					label: '% of Files With Errors',
 					data: dataPoints,
 					backgroundColor: [
 					'rgba(255, 99, 132, 0.2)',
