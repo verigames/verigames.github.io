@@ -24,8 +24,8 @@
             for (var i = 0; i < files.length; i++) {
                 console.log(files[i]);
                 var parts = files[i].split("=");
-				var date = files[0];
-				var value = files[1];
+				var date = parts[0];
+				var value = parts[1];
 
 				dates.push(date);
 				values.push(value);
@@ -41,24 +41,40 @@
 
     	var labelStrings = [];
     	for(var i = 0; i < dates.length; i++) {
-    		labelStrings.push(new Date(dates[i]).toLocaleString());
+    		labelStrings.push(new Date(dates[i]));
     	}
 
     	var dataPoints = [];
     	for(var i = 0; i < dates.length; i++) {
-    		var point = {
-    			t: new Date(dates[i]),
-    			y: values[i]
-    		};
-    		dataPoints.push(point);
+    		// var point = {
+    		// 	t: new Date(dates[i]),
+    		// 	y: values[i]
+    		// };
+    		dataPoints.push(values[i]);
     	}
 
 		var chart = new Chart(ctx, {
 			type: 'line',
+			options: {
+				scales: {
+					xAxes: [{
+						display: true,
+						type: 'time',
+						distribution: 'linear'
+					}],
+					yAxes: [{
+						display: true,
+						ticks: {
+							suggestedMin: 0,
+							max: 1.0
+						}
+					}]
+				}
+			},		
 			data: {
 				labels: labelStrings,
 				datasets: [{
-					label: 'Progress',
+					label: '% of Files Modified',
 					data: dataPoints,
 					backgroundColor: [
 					'rgba(255, 99, 132, 0.2)',
