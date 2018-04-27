@@ -74,7 +74,7 @@
 			data: {
 				labels: labelStrings,
 				datasets: [{
-					label: '% of Files With Errors',
+					label: 'Number of Files With Errors',
 					data: dataPoints,
 					backgroundColor: [
 					'rgba(255, 99, 132, 0.2)',
