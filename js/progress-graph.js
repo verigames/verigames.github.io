@@ -4,6 +4,8 @@
 	var DATA_FILE = "data.txt";
 
 	document.addEventListener("DOMContentLoaded", function() {
+		getData();
+
 		var ctx = document.getElementById("progress-graph").getContext("2d");
 
 		var myChart = new Chart(ctx, {
@@ -55,21 +57,21 @@
 		});
 	});
 
-	function getFiles() {
+	function getData() {
         var ajax = new XMLHttpRequest();
-        ajax.onload = loadFiles;
+        ajax.onload = loadData;
         ajax.open("GET", DATA_FILE, true);
         ajax.withCredentials = true;
         ajax.send();
     }
 
-    function loadFiles() {
+    function loadData() {
         if (this.readyState === 4 && this.status === 200) {
-            showError("");
+            console.log(this.responseText);
             var files = this.responseText.match(/[^\r\n]+/g);
 
             for (var i = 0; i < files.length; i++) {
-                
+                console.log(files[i]);
             }
             fixSize();
         } else {
