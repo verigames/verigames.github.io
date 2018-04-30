@@ -56,6 +56,7 @@
 		var chart = new Chart(ctx, {
 			type: 'line',
 			options: {
+				bezierCurve: false,
 				scales: {
 					xAxes: [{
 						display: true,
