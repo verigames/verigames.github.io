@@ -56,7 +56,11 @@
 		var chart = new Chart(ctx, {
 			type: 'line',
 			options: {
-				bezierCurve: false,
+				elements: {
+					line: {
+						tension: 0
+					}
+				},
 				scales: {
 					xAxes: [{
 						display: true,
