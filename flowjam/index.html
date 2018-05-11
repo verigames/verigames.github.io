@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FlowJam Cohesion Graph</title>
+
+	<link rel="stylesheet" type="text/css" href="/css/relation-graph.css">
+
+	<!-- Math.js -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/4.2.2/math.min.js"></script>
+
+	<script type="text/javascript" src="/vendor/sigma.min.js"></script>
+	<script type="text/javascript" src="/vendor/sigma.layout.forceAtlas2.min.js"></script>
+	<script type="text/javascript" src="/vendor/sigma.plugins.dragNodes.min.js"></script>
+	<script type="text/javascript" src="/js/relation-graph.js"></script>
+</head>
+<body>
+	<div id="info">
+		<div id="title-box">
+			<h1>FlowJam Cohesion Graph</h1>
+			<div>
+				<strong>Left-Click + Drag on background:</strong> Pan <br/> 
+				<strong>Left-Click + Drag on node:</strong> Move node <br/>
+				<strong>Hover on node:</strong> Highlight Node + Neighbors, Show label <br/> 
+				<strong>Scroll/Double Click:</strong> Zoom in/out <br/>
+			</div>
+		</div>
+
+		<div id="description-box">
+			<div>
+				This graph displays the <a href="https://en.wikipedia.org/wiki/Cohesion_(computer_science)" target="_blank">cohesion</a> of the <a href="https://github.com/kblack37/verigames" target="_blank">FlowJam</a> Haxe port. Each node represents a module, with the node's size corresponding to the module's size in relative number of lines. An edge from one node to another represents that the first uses the second.
+			</div>
+			<br/>
+			<div>
+				<strong>Avg. Outdegree:</strong> <span id="module-count">N/A</span> <br/>
+				<strong>Avg. Outdegree:</strong> <span id="avg-outdegree">N/A</span> <br/>
+				<strong>Max Outdegree:</strong> <span id="max-outdegree">N/A</span> <br/>
+				<strong>3-Cycles:</strong> <span id="cycle3-count">Calculating...</span> <br/>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div id="relation-graph"></div>
+	</div>
+</body>
+</html>
