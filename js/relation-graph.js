@@ -70,10 +70,12 @@
             }
 
             // Add all edges to the graph
+            var outdegrees = {}
 			for (var i = 1; i < data.length; i++) {
                 var parts = data[i].split(" ");
                 var module = parts[0];
 
+                outdegrees[module] = parts.length - 1;
                 // Update stats
                 if (parts.length - 1 > maxOutdegree) {
                     maxOutdegree = parts.length - 1;
@@ -98,6 +100,14 @@
                 }
             }
             avgOutdegree /= modules.length - 1;
+
+            // // Update labels with outdegrees
+            // s.graph.nodes().forEach(function(n) {
+            //     n.label = "a";
+            // });
+            for(var i = 0; i < g.nodes.length; i++) {
+                g.nodes[i].label += ":" + outdegrees[g.nodes[i].label];
+            }
 
             // Create worker to calculate cycles, so as to not freeze the rest
             // of the window while working
