@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	var DATA_FILE = "/data.txt";
+	var DATA_FILE = "/flowjam/history/data.txt";
 
 	document.addEventListener("DOMContentLoaded", function() {
 		getData();
